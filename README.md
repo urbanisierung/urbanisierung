@@ -1,4 +1,4 @@
-![yay](that-was-more-work-than-i-thought.svg)
+![yay](./that-was-more-work-than-i-thought.svg)
 
 <!--
 ### Hi there 👋
