@@ -1,0 +1,52 @@
+{
+  "social": [
+    {
+      "name": "Twitter",
+      "url": "https://twitter.com/urbanisierung",
+      "icon": "twitter.svg",
+      "enabled": true
+    },
+    {
+      "name": "LinkedIn",
+      "url": "https://linkedin.com/adamurban",
+      "icon": "linkedin.svg",
+      "enabled": true
+    },
+    {
+      "name": "dev.to",
+      "url": "https://dev.to/urbanisierung",
+      "icon": "devto.png",
+      "enabled": true
+    },
+    {
+      "name": "ProductHunt",
+      "url": "https://producthunt.com/@urbanisierung",
+      "icon": "producthunt.png",
+      "enabled": true
+    }
+  ],
+  "intro": {
+    "person": {
+      "title": "👋 Hi, I Am Adam",
+      "topics": [
+        "I'm a Full Stack Developer from Germany 🇩🇪",
+        "I'm currently working at [Camunda](https://camunda.com) and building Camunda Cloud.",
+        "Absolute Serverless fan",
+        "Generative Art lover. Check out my [portfolio](https://urbanisierung.dev) to see some of my work.",
+        "I'm working on a lot of side projects like [DIY Punks](https://diypunks.xyz) or [WebsiteShot](https://websiteshot.app).",
+        "My latest project is [flethy.com](https://flethy.com). One API to rule them all. And an incredibly fast engine to execute flows. Check it out! flethy was also part of the first Cloudflare Workers Launchpad Cohort!"
+      ]
+    },
+    "stack": {
+      "title": "🖥️ Fav Tech Stack",
+      "topics": [
+        "Node.js",
+        "TypeScript",
+        "Express",
+        "Cloudflare",
+        "Postgres",
+        "React with mobx"
+      ]
+    }
+  }
+}

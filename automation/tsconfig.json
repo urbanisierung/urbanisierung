@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "readme-automation",
+  "compilerOptions": {
+    "sourceMap": true,
+    "module": "commonjs",
+    "target": "ESNext",
+    "types": ["node"],
+    "esModuleInterop": true,
+    "declaration": true,
+    "isolatedModules": false,
+    "resolveJsonModule": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}
