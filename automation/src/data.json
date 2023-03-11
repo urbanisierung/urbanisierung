@@ -27,7 +27,7 @@
   ],
   "intro": {
     "person": {
-      "title": "👋 Hi, I Am Adam",
+      "title": "👋 Hi, I'm Adam",
       "topics": [
         "I'm a Full Stack Developer from Germany 🇩🇪",
         "I'm currently working at [Camunda](https://camunda.com) and building Camunda Cloud.",
@@ -38,7 +38,7 @@
       ]
     },
     "stack": {
-      "title": "🖥️ Fav Tech Stack",
+      "title": "🖥️ Stack",
       "topics": [
         "Node.js",
         "TypeScript",
