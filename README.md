@@ -3,7 +3,7 @@
 
 <td valign="top" width="75%">
 
-# 👋 Hi, I Am Adam
+# 👋 Hi, I'm Adam
 - I'm a Full Stack Developer from Germany 🇩🇪
 - I'm currently working at [Camunda](https://camunda.com) and building Camunda Cloud.
 - Absolute Serverless fan
@@ -14,7 +14,7 @@
 </td>
 <td valign="top" width="25%">
 
-# 🖥️ Fav Tech Stack
+# 🖥️ Stack
 - Node.js
 - TypeScript
 - Express
