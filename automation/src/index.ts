@@ -7,7 +7,7 @@ import { ReadmeUtils } from "./readme.utils";
 
 const ASSETS_BASE =
   "https://raw.githubusercontent.com/urbanisierung/urbanisierung/master/assets";
-const FILENAME = "README2.md";
+const FILENAME = "README.md";
 
 class ReadmeGenerator {
   private content: string[] = [];
@@ -64,9 +64,11 @@ class ReadmeGenerator {
   }
 
   public addContent() {
-    const projects: string[] = [];
+    const projects: string[] = ReadmeUtils.createTableColumnContent(
+      DATA.projects
+    );
     const devToArticles: string[] = ReadmeUtils.createTableColumnContent({
-      title: "Recent Articles on dev.to",
+      title: DATA.blog.title,
       topics: this.devToArticles.slice(0, 5).map((article: any) => {
         return `[${article.title}](${article.url})`;
       }),
@@ -90,7 +92,7 @@ class ReadmeGenerator {
 
   public async generateAndSave() {
     await this.fetchDevToArticles();
-    fs.writeFileSync(`${__dirname}/../${FILENAME}`, this.generateMarkdown());
+    fs.writeFileSync(`${__dirname}/../../${FILENAME}`, this.generateMarkdown());
   }
 }
 

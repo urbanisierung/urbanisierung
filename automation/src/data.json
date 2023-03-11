@@ -48,5 +48,18 @@
         "React with mobx"
       ]
     }
+  },
+  "blog": {
+    "title": "✨ Recent Articles on dev.to"
+  },
+  "projects": {
+    "title": "🚀 Latest Projects",
+    "topics": [
+      "[flethy.com](https://flethy.com) is the easiest way to integrate with popular APIs and to create simple workflows. You can use it for free!",
+      "Do you ever wanted to have a CryptoPunk but you don't want to pay 1000$ for it? Check out [DIY Punks](https://diypunks.xyz)!",
+      "Keep Screenshots up to date is a pain. Automate it with [WebsiteShot](https://websiteshot.app).",
+      "Your own web3 profile available at [ETHME](https.//ethme.at).",
+      "The most easy way to get started with Camunda 8 Cloud: [RestZeebe](https://restzeebe.app)."
+    ]
   }
 }
