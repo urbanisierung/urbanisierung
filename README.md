@@ -1,7 +1,6 @@
-<div align="center"><a href="https://twitter.com/urbanisierung"><img src="https://raw.githubusercontent.com/urbanisierung/urbanisierung/master/assets/twitter.svg" title="Twitter" alt="Twitter" height="40" /></a>&ensp;<a href="https://linkedin.com/adamurban"><img src="https://raw.githubusercontent.com/urbanisierung/urbanisierung/master/assets/linkedin.svg" title="LinkedIn" alt="LinkedIn" height="40" /></a>&ensp;<a href="https://dev.to/urbanisierung"><img src="https://raw.githubusercontent.com/urbanisierung/urbanisierung/master/assets/devto.png" title="dev.to" alt="dev.to" height="40" /></a>&ensp;<a href="https://producthunt.com/@urbanisierung"><img src="https://raw.githubusercontent.com/urbanisierung/urbanisierung/master/assets/producthunt.png" title="ProductHunt" alt="ProductHunt" height="40" /></a></div>
-<table><tr>
+<div align="center"><a href="https://twitter.com/urbanisierung"><img src="https://raw.githubusercontent.com/urbanisierung/urbanisierung/master/assets/twitter.svg" title="Twitter" alt="Twitter" height="32" /></a>&ensp;<a href="https://linkedin.com/adamurban"><img src="https://raw.githubusercontent.com/urbanisierung/urbanisierung/master/assets/linkedin.svg" title="LinkedIn" alt="LinkedIn" height="32" /></a>&ensp;<a href="https://dev.to/urbanisierung"><img src="https://raw.githubusercontent.com/urbanisierung/urbanisierung/master/assets/devto.png" title="dev.to" alt="dev.to" height="32" /></a>&ensp;<a href="https://producthunt.com/@urbanisierung"><img src="https://raw.githubusercontent.com/urbanisierung/urbanisierung/master/assets/producthunt.png" title="ProductHunt" alt="ProductHunt" height="32" /></a></div>
 
-<td valign="top" width="75%">
+<table ><tr ><td valign="top" width="75%">
 
 # 👋 Hi, I'm Adam
 - I'm a Full Stack Developer from Germany 🇩🇪
@@ -22,12 +21,9 @@
 - Postgres
 - React with mobx
 
-</td>
+</td></tr></table>
 
-</tr></table>
-<table><tr>
-
-<td valign="top" width="50%">
+<table ><tr ><td valign="top" width="50%">
 
 # 🚀 Latest Projects
 - [flethy.com](https://flethy.com) is the easiest way to integrate with popular APIs and to create simple workflows. You can use it for free!
@@ -45,7 +41,10 @@
 - [Be an orchestration hero](https://dev.to/urbanisierung/be-an-orchestration-hero-2899)
 - [Cut a few braids: new NPM package](https://dev.to/urbanisierung/cut-a-few-braids-new-npm-package-1234)
 - [ETHme - your chic web3 identity](https://dev.to/urbanisierung/ethme-your-chic-web3-identity-17op)
+- [Automatically update data and commit](https://dev.to/urbanisierung/automatically-update-data-and-commit-17l)
+- [Aren't the standard actions going too far for you? Write your own one!](https://dev.to/urbanisierung/arent-the-standard-actions-going-too-far-for-you-write-your-own-one-29lp)
+- [Screenshots: a perfect task to automate!](https://dev.to/urbanisierung/screenshots-a-perfect-task-to-automate-3of5)
+- [Send messages to Slack from Camunda Cloud](https://dev.to/urbanisierung/send-messages-to-slack-from-camunda-cloud-23p8)
+- [5 Steps how to track your Team's Mood](https://dev.to/urbanisierung/5-steps-how-to-track-your-team-s-mood-48cc)
 
-</td>
-
-</tr></table>
+</td></tr></table>

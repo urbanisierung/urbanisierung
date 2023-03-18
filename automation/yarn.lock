@@ -34,6 +34,11 @@
   resolved "https://registry.yarnpkg.com/@flethy/connectors/-/connectors-0.0.348.tgz#95d52d9a99c8be94852e7bc6791b9223d44d68fb"
   integrity sha512-NV2/9aUpYT0yaNCfU6+jRSg/8mu6uRsmCg0CCZ+75v/PsDTDD0aHsfkxF7m+6VWrBk9mHF2rVs0vV7vbBo6HgQ==
 
+"@flethy/connectors@^0.0.350":
+  version "0.0.350"
+  resolved "https://registry.yarnpkg.com/@flethy/connectors/-/connectors-0.0.350.tgz#4766dda99646aded4fbcbe073f39307446bae41d"
+  integrity sha512-DI6dpbp93cmRXwvrgJ9u/1VzFm1jt59sT4qcmOjei+Kk/yiHy/xuWC0mF2pnXbwdOAHiC9FDUG+oFBthlNA2mw==
+
 "@humanwhocodes/config-array@^0.11.8":
   version "0.11.8"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.8.tgz#03595ac2075a4dc0f191cc2131de14fbd7d410b9"
@@ -70,6 +75,13 @@
   dependencies:
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
+
+"@magic-dev-tools/readme-utils@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@magic-dev-tools/readme-utils/-/readme-utils-0.0.5.tgz#cccd285b0fa87d1ab8d66037c123e134ff6add58"
+  integrity sha512-VjySNQkN6+iMXo89I+OumpTAdHiX1U5HRN5PCcC7EpxZ5hhk+pubozNVsoQ/ov2L/7jJZIkgrNewA+ikvceoSg==
+  dependencies:
+    "@flethy/connectors" "^0.0.350"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
