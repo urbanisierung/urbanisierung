@@ -1,65 +1,91 @@
 {
-  "social": [
+  "github": {
+    "owner": "urbanisierung",
+    "repo": "urbanisierung",
+    "branch": "master"
+  },
+  "blocks": [
     {
-      "name": "Twitter",
-      "url": "https://twitter.com/urbanisierung",
-      "icon": "twitter.svg",
-      "enabled": true
-    },
-    {
-      "name": "LinkedIn",
-      "url": "https://linkedin.com/adamurban",
-      "icon": "linkedin.svg",
-      "enabled": true
-    },
-    {
-      "name": "dev.to",
-      "url": "https://dev.to/urbanisierung",
-      "icon": "devto.png",
-      "enabled": true
-    },
-    {
-      "name": "ProductHunt",
-      "url": "https://producthunt.com/@urbanisierung",
-      "icon": "producthunt.png",
-      "enabled": true
-    }
-  ],
-  "intro": {
-    "person": {
-      "title": "👋 Hi, I'm Adam",
-      "topics": [
-        "I'm a Full Stack Developer from Germany 🇩🇪",
-        "I'm currently working at [Camunda](https://camunda.com) and building Camunda Cloud.",
-        "Absolute Serverless fan",
-        "Generative Art lover. Check out my [portfolio](https://urbanisierung.dev) to see some of my work.",
-        "I'm working on a lot of side projects like [DIY Punks](https://diypunks.xyz) or [WebsiteShot](https://websiteshot.app).",
-        "My latest project is [flethy.com](https://flethy.com). One API to rule them all. And an incredibly fast engine to execute flows. Check it out! flethy was also part of the first Cloudflare Workers Launchpad Cohort!"
+      "type": "social",
+      "blocks": [
+        {
+          "title": "Twitter",
+          "src": "assets/twitter.svg",
+          "url": "https://twitter.com/urbanisierung",
+          "type": "social-icon"
+        },
+        {
+          "title": "LinkedIn",
+          "src": "assets/linkedin.svg",
+          "url": "https://linkedin.com/adamurban",
+          "type": "social-icon"
+        },
+        {
+          "title": "dev.to",
+          "src": "assets/devto.png",
+          "url": "https://dev.to/urbanisierung",
+          "type": "social-icon"
+        },
+        {
+          "title": "ProductHunt",
+          "src": "assets/producthunt.png",
+          "url": "https://producthunt.com/@urbanisierung",
+          "type": "social-icon"
+        }
       ]
     },
-    "stack": {
-      "title": "🖥️ Stack",
-      "topics": [
-        "Node.js",
-        "TypeScript",
-        "Express",
-        "Cloudflare",
-        "Postgres",
-        "React with mobx"
+    {
+      "type": "table",
+      "widths": [75, 25],
+      "blocks": [
+        {
+          "type": "title-and-topic-list",
+          "title": "👋 Hi, I'm Adam",
+          "topics": [
+            "I'm a Full Stack Developer from Germany 🇩🇪",
+            "I'm currently working at [Camunda](https://camunda.com) and building Camunda Cloud.",
+            "Absolute Serverless fan",
+            "Generative Art lover. Check out my [portfolio](https://urbanisierung.dev) to see some of my work.",
+            "I'm working on a lot of side projects like [DIY Punks](https://diypunks.xyz) or [WebsiteShot](https://websiteshot.app).",
+            "My latest project is [flethy.com](https://flethy.com). One API to rule them all. And an incredibly fast engine to execute flows. Check it out! flethy was also part of the first Cloudflare Workers Launchpad Cohort!"
+          ]
+        },
+        {
+          "type": "title-and-topic-list",
+          "title": "🖥️ Stack",
+          "topics": [
+            "Node.js",
+            "TypeScript",
+            "Express",
+            "Cloudflare",
+            "Postgres",
+            "React with mobx"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "blocks": [
+        {
+          "type": "title-and-topic-list",
+          "title": "🚀 Latest Projects",
+          "topics": [
+            "[flethy.com](https://flethy.com) is the easiest way to integrate with popular APIs and to create simple workflows. You can use it for free!",
+            "Do you ever wanted to have a CryptoPunk but you don't want to pay 1000$ for it? Check out [DIY Punks](https://diypunks.xyz)!",
+            "Keep Screenshots up to date is a pain. Automate it with [WebsiteShot](https://websiteshot.app).",
+            "Your own web3 profile available at [ETHME](https.//ethme.at).",
+            "The most easy way to get started with Camunda 8 Cloud: [RestZeebe](https://restzeebe.app)."
+          ]
+        },
+        {
+          "type": "blog",
+          "blog": "devto",
+          "username": "urbanisierung",
+          "limit": 10,
+          "title": "✨ Recent Articles on dev.to"
+        }
       ]
     }
-  },
-  "blog": {
-    "title": "✨ Recent Articles on dev.to"
-  },
-  "projects": {
-    "title": "🚀 Latest Projects",
-    "topics": [
-      "[flethy.com](https://flethy.com) is the easiest way to integrate with popular APIs and to create simple workflows. You can use it for free!",
-      "Do you ever wanted to have a CryptoPunk but you don't want to pay 1000$ for it? Check out [DIY Punks](https://diypunks.xyz)!",
-      "Keep Screenshots up to date is a pain. Automate it with [WebsiteShot](https://websiteshot.app).",
-      "Your own web3 profile available at [ETHME](https.//ethme.at).",
-      "The most easy way to get started with Camunda 8 Cloud: [RestZeebe](https://restzeebe.app)."
-    ]
-  }
+  ]
 }
