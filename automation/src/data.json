@@ -46,8 +46,9 @@
             "I'm currently working at [Camunda](https://camunda.com) and building Camunda Cloud.",
             "Absolute Serverless fan",
             "Generative Art lover. Check out my [portfolio](https://urbanisierung.dev) to see some of my work.",
-            "I'm working on a lot of side projects like [DIY Punks](https://diypunks.xyz) or [WebsiteShot](https://websiteshot.app).",
-            "My latest project is [flethy.com](https://flethy.com). One API to rule them all. And an incredibly fast engine to execute flows. Check it out! flethy was also part of the first Cloudflare Workers Launchpad Cohort!"
+            "I'm working on a lot of side projects like [DIY Punks](https://diypunks.xyz) or [Ethme](https://ethme.at).",
+            "My latest project is [flethy.com](https://flethy.com). One API to rule them all. And an incredibly fast engine to execute flows. Check it out! flethy was also part of the first Cloudflare Workers Launchpad Cohort!",
+            "I'm curating a weekly newsletter about all news around webdev and design. Check it out at [weeklyfoo](https://weeklfyfoo.com)."
           ]
         },
         {
@@ -71,11 +72,10 @@
           "type": "title-and-topic-list",
           "title": "🚀 Latest Projects",
           "topics": [
+            "[weeklyfoo](https://weeklyfoo.com) Weekly newsletter about webdev and design. Every Monday. Condensed and curated. No costs.",
             "[flethy.com](https://flethy.com) is the easiest way to integrate with popular APIs and to create simple workflows. You can use it for free!",
             "Do you ever wanted to have a CryptoPunk but you don't want to pay 1000$ for it? Check out [DIY Punks](https://diypunks.xyz)!",
-            "Keep Screenshots up to date is a pain. Automate it with [WebsiteShot](https://websiteshot.app).",
-            "Your own web3 profile available at [ETHME](https.//ethme.at).",
-            "The most easy way to get started with Camunda 8 Cloud: [RestZeebe](https://restzeebe.app)."
+            "Your own web3 profile available at [ETHME](https.//ethme.at)."
           ]
         },
         {
