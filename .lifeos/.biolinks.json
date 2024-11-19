@@ -31,6 +31,12 @@
       "type": "link",
       "name": " Mastodon",
       "url": " https://techhub.social/@urbanisierung"
+    },
+    {
+      "id": "1732000950036",
+      "type": "link",
+      "name": "Dev.to",
+      "url": "https://dev.to/urbanisierung"
     }
   ],
   "name": "Adam Urban",
