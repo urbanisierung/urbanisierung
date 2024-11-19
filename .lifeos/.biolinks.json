@@ -25,6 +25,12 @@
       "type": "link",
       "name": " Bluesky",
       "url": " https://bsky.app/profile/urbanisierung.bsky.social"
+    },
+    {
+      "id": "1732000921556",
+      "type": "link",
+      "name": " Mastodon",
+      "url": " https://techhub.social/@urbanisierung"
     }
   ],
   "name": "Adam Urban",
