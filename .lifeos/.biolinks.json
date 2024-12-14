@@ -54,6 +54,12 @@
       "id": "1734161157624",
       "type": "text",
       "text": " Currently hacking on"
+    },
+    {
+      "id": "1734161216464",
+      "type": "link",
+      "name": "weeklyfoo.com - all webdev news you need to know ",
+      "url": " https://weeklyfoo.com"
     }
   ],
   "name": "Adam Urban",
