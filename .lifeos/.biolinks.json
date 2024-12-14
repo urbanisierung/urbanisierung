@@ -60,6 +60,12 @@
       "type": "link",
       "name": "weeklyfoo.com - all webdev news you need to know ",
       "url": " https://weeklyfoo.com"
+    },
+    {
+      "id": "1734161242752",
+      "type": "link",
+      "name": "lifosy.com - files over services",
+      "url": " https://lifosy.com"
     }
   ],
   "name": "Adam Urban",
