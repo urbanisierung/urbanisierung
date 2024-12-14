@@ -49,6 +49,11 @@
       "type": "link",
       "name": "Medium",
       "url": "https://medium.com/@urbanisierung"
+    },
+    {
+      "id": "1734161157624",
+      "type": "text",
+      "text": " Currently hacking on"
     }
   ],
   "name": "Adam Urban",
