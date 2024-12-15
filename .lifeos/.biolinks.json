@@ -60,16 +60,16 @@
       "type": "link",
       "name": "weeklyfoo.com",
       "url": " https://weeklyfoo.com",
-      "description": "all webdev news you need to know  ",
-      "icon": " "
+      "description": "all webdev news you need to know",
+      "icon": ""
     },
     {
       "id": "1734161242752",
       "type": "link",
       "name": "lifosy.com",
       "url": " https://lifosy.com",
-      "description": "files over services ",
-      "icon": " "
+      "description": "files over services",
+      "icon": ""
     }
   ],
   "name": "Adam Urban",
