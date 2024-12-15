@@ -58,8 +58,10 @@
     {
       "id": "1734161216464",
       "type": "link",
-      "name": "weeklyfoo.com - all webdev news you need to know ",
-      "url": " https://weeklyfoo.com"
+      "name": "weeklyfoo.com",
+      "url": " https://weeklyfoo.com",
+      "description": "all webdev news you need to know  ",
+      "icon": " "
     },
     {
       "id": "1734161242752",
