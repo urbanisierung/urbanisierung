@@ -66,8 +66,10 @@
     {
       "id": "1734161242752",
       "type": "link",
-      "name": "lifosy.com - files over services",
-      "url": " https://lifosy.com"
+      "name": "lifosy.com",
+      "url": " https://lifosy.com",
+      "description": "files over services ",
+      "icon": " "
     }
   ],
   "name": "Adam Urban",
