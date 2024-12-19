@@ -1,4 +1,15 @@
 {
   "title": "Paris",
-  "pois": []
+  "pois": [
+    {
+      "id": "e815c1cf-9d4c-4a76-8afe-b5a1db6e8373",
+      "title": "Tour Eiffel",
+      "description": "Tour Eiffel",
+      "search": [
+        "Tour Eiffel",
+        "Paris",
+        "France"
+      ]
+    }
+  ]
 }
