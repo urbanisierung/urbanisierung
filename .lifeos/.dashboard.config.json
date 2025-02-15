@@ -1,13 +1,13 @@
 {
   "entries": [],
   "files": {
-    "selected": ".lifeos/.biolinks.json",
+    "selected": ".lifeos/pois/paris.poi.json",
     "opened": [
-      ".lifeos/.biolinks.json"
+      ".lifeos/pois/paris.poi.json"
     ],
     "recentlyOpened": [
-      ".lifeos/.biolinks.json",
-      ".lifeos/pois/paris.poi.json"
+      ".lifeos/pois/paris.poi.json",
+      ".lifeos/.biolinks.json"
     ]
   }
 }
