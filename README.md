@@ -1,3 +1,4 @@
+```
 ADAM(1)                     User Commands                    ADAM(1)
 
 NAME
@@ -46,3 +47,4 @@ LINKS
     ProductHunt     https://producthunt.com/@urbanisierung
 
 ADAM                           April 2026                    ADAM(1)
+```
