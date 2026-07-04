@@ -2,49 +2,71 @@
 ADAM(1)                     User Commands                    ADAM(1)
 
 NAME
-    adam — full stack developer, generative art lover
+    adam — fullstack engineer, serverless enthusiast, generative artist
 
 SYNOPSIS
-    serverless, generative art, open source
+    adam [--typescript] [--rust] [--serverless]
+         [--generative-art] [--open-source] [--ship]
 
 DESCRIPTION
-    Full Stack Developer from Germany. Building Camunda Cloud at
-    Camunda. Absolute serverless fan. Generative art lover with a
-    portfolio of algorithmic and generative works.
+    Fullstack Engineer based in Karlsruhe, Germany. Building Camunda
+    Cloud at Camunda. Serverless to the core, increasingly reaching
+    for Rust, and a long-time lover of generative art. Ships small,
+    sharp side projects on nights and weekends — and curates a weekly
+    newsletter for people who build for the web.
 
 ENVIRONMENT
-    LANGUAGES       TypeScript, Node.js
-    RUNTIME         Cloudflare Workers
-    FRONTEND        React
-    STATE           MobX
-    DATABASE        Postgres
+    LANGUAGES       TypeScript, Node.js, Rust
+    RUNTIME         Cloudflare Workers, serverless
+    FRONTEND        React, Astro, MDX
+    DATA            Postgres
+    PRINCIPLE       files over services
+
+RECENT ACTIVITY
+    2026-07   lifosy.com — a local-first "Life OS". Own your data,
+              files over services.
+    2026-07   urbanisierung.dev — rebuilt portfolio and gallery of
+              generative & algorithmic works.
+    2026-06   Going deeper on Rust — a set of opinionated remote and
+              developer tools (mxr and friends).
+    ongoing   weeklyfoo.com — curating the week in webdev & design.
+              Every Monday. Condensed, curated, free.
 
 SEE ALSO
+    weeklyfoo(1)
+        All the webdev news you need to know. Weekly, curated, and
+        completely free.
+        https://weeklyfoo.com
+
+    lifosy(1)
+        Your Life OS. Files over services — you own your data.
+        https://lifosy.com
+
     flethy(1)
         One API to rule them all. Incredibly fast engine to execute
         API flows. Part of the first Cloudflare Workers Launchpad
         Cohort.
         https://flethy.com
 
-    weeklyfoo(1)
-        Weekly newsletter about webdev and design. Every Monday.
-        Condensed and curated. No costs.
-        https://weeklyfoo.com
-
-    diypunks(1)
-        CryptoPunks for everyone. DIY style.
-        https://diypunks.xyz
+    boringdevtools(1)
+        A collection of no-nonsense, everyday developer utilities.
+        https://boringdevtools.com
 
     ethme(1)
         Your own web3 profile.
         https://ethme.at
 
-LINKS
-    Portfolio       https://u11g.com
-    Twitter         https://twitter.com/urbanisierung
-    LinkedIn        https://linkedin.com/in/adamurban
-    dev.to          https://dev.to/urbanisierung
-    ProductHunt     https://producthunt.com/@urbanisierung
+    diypunks(1)
+        CryptoPunks for everyone. DIY style.
+        https://diypunks.xyz
 
-ADAM                           April 2026                    ADAM(1)
+LINKS
+    Portfolio       https://urbanisierung.dev
+    X / Twitter     https://twitter.com/urbanisierung
+    LinkedIn        https://linkedin.com/in/adamurban
+    Bluesky         https://bsky.app/profile/urbanisierung.bsky.social
+    Mastodon        https://techhub.social/@urbanisierung
+    dev.to          https://dev.to/urbanisierung
+
+ADAM                            July 2026                    ADAM(1)
 ```
