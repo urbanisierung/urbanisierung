@@ -23,8 +23,9 @@ ENVIRONMENT
     PRINCIPLE       files over services
 
 RECENT ACTIVITY
-    2026-07   lifosy.com — a local-first "Life OS". Own your data,
+    2026-07   kaihuman.com — my "Life OS". Own your data,
               files over services.
+    2026-07   bpmnkit.com & cascivo.com — newest builds in the lab.
     2026-07   urbanisierung.dev — rebuilt portfolio and gallery of
               generative & algorithmic works.
     2026-06   Going deeper on Rust — a set of opinionated remote and
@@ -38,19 +39,26 @@ SEE ALSO
         completely free.
         https://weeklyfoo.com
 
-    lifosy(1)
+    kaihuman(1)
         Your Life OS. Files over services — you own your data.
-        https://lifosy.com
+        https://kaihuman.com
+
+    bpmnkit(1)
+        A toolkit for working with BPMN.
+        https://bpmnkit.com
+
+    cascivo(1)
+        https://cascivo.com
+
+    boringdevtools(1)
+        A collection of no-nonsense, everyday developer utilities.
+        https://boringdevtools.com
 
     flethy(1)
         One API to rule them all. Incredibly fast engine to execute
         API flows. Part of the first Cloudflare Workers Launchpad
         Cohort.
         https://flethy.com
-
-    boringdevtools(1)
-        A collection of no-nonsense, everyday developer utilities.
-        https://boringdevtools.com
 
     ethme(1)
         Your own web3 profile.
