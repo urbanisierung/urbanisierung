@@ -72,7 +72,7 @@ LINKS
     Portfolio       https://urbanisierung.dev
     X / Twitter     https://twitter.com/urbanisierung
     LinkedIn        https://linkedin.com/in/adamurban
-    Bluesky         https://bsky.app/profile/urbanisierung.bsky.social
+    Bluesky         https://bsky.app/profile/u11g.com
     Mastodon        https://techhub.social/@urbanisierung
     dev.to          https://dev.to/urbanisierung
 
