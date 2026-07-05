@@ -153,7 +153,8 @@ function renderHeatmap(calendar) {
 
 // ─── LATEST (recent repos) ──────────────────────────────────────────────────
 function renderLatest(repos) {
-  const recent = repos.slice(0, 6);
+  // Skip the profile repo itself — the daily bot commit would always pin it to #1.
+  const recent = repos.filter((r) => r.name !== LOGIN).slice(0, 6);
   if (!recent.length) return null;
   const lines = ["LATEST"];
   for (const r of recent) {
@@ -165,9 +166,12 @@ function renderLatest(repos) {
   return lines.join("\n");
 }
 
-// ─── GENERATIVE (deterministic daily ASCII plasma) ──────────────────────────
+// ─── GENERATIVE (deterministic daily ASCII field) ───────────────────────────
+// A domain-warped sine field with a soft radial vignette: organic, non-
+// repeating forms with real negative space. Seeded from the date, so the
+// piece is stable for a given day and fresh the next. Uses the page's block
+// ramp so it reads as part of the same terminal.
 function renderGenerative(dateStr) {
-  // Seed a PRNG from the date so the piece is stable per day, fresh each day.
   let h = 2166136261;
   for (const ch of dateStr) {
     h ^= ch.charCodeAt(0);
@@ -181,21 +185,35 @@ function renderGenerative(dateStr) {
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
 
-  const RAMP = [" ", "·", ":", "+", "*", "#", "▓", "█"];
-  const W = 53, H = 6;
-  const fx = 0.18 + rng() * 0.30, fy = 0.28 + rng() * 0.45, fd = 0.10 + rng() * 0.22;
-  const px = rng() * Math.PI * 2, py = rng() * Math.PI * 2, pd = rng() * Math.PI * 2;
+  const RAMP = [" ", "·", "░", "▒", "▓", "█"];
+  const TAU = Math.PI * 2;
+  const W = 53, H = 7;
+
+  const a1 = 0.10 + rng() * 0.16;
+  const a2 = 0.14 + rng() * 0.22;
+  const warp = 0.8 + rng() * 2.0;
+  const ph1 = rng() * TAU, ph2 = rng() * TAU, ph3 = rng() * TAU;
+  const cx = W * (0.30 + rng() * 0.40); // focal point drifts each day
+  const cy = H * (0.30 + rng() * 0.40);
 
   const lines = [`GENERATIVE — seed ${dateStr}`];
   for (let y = 0; y < H; y++) {
     let row = "";
     for (let x = 0; x < W; x++) {
-      const v =
-        Math.sin(x * fx + px) +
-        Math.sin(y * fy + py) +
-        Math.sin((x + y) * fd + pd);
-      const n = (v + 3) / 6; // → 0..1
-      row += RAMP[Math.min(RAMP.length - 1, Math.max(0, Math.floor(n * RAMP.length)))];
+      // Warp the sampling coordinates with sine of the orthogonal axis — this
+      // breaks the mechanical periodicity of a plain plasma into flowing forms.
+      const wx = x * a1 + Math.sin(y * a2 + ph1) * warp;
+      const wy = y * a2 + Math.sin(x * a1 + ph2) * warp;
+      let v = Math.sin(wx) + Math.sin(wy) + Math.sin((wx + wy) * 0.5 + ph3);
+      v = (v / 3 + 1) / 2; // → 0..1
+
+      // Radial falloff → fades to negative space toward the edges.
+      const nx = (x - cx) / (W * 0.6);
+      const ny = (y - cy) / H; // char cells are ~2:1, so y is already "wider"
+      v *= Math.max(0, 1 - (nx * nx + ny * ny) * 0.75);
+
+      const idx = Math.min(RAMP.length - 1, Math.max(0, Math.floor(v * RAMP.length)));
+      row += RAMP[idx];
     }
     lines.push(`${PAD}${row.replace(/\s+$/, "")}`);
   }
