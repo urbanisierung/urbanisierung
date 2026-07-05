@@ -76,5 +76,8 @@ LINKS
     Mastodon        https://techhub.social/@urbanisierung
     dev.to          https://dev.to/urbanisierung
 
+CONTRIBUTIONS
+    Waiting for the first daily run… (Actions → "Contributions heatmap" → Run)
+
 ADAM                            July 2026                    ADAM(1)
 ```

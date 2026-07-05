@@ -1,0 +1,47 @@
+name: Contributions heatmap
+
+on:
+  schedule:
+    # Daily at 04:17 UTC (off the hour to avoid Actions congestion).
+    - cron: "17 4 * * *"
+  workflow_dispatch: {}
+  push:
+    paths:
+      - ".github/workflows/contributions-heatmap.yml"
+      - ".github/scripts/heatmap.mjs"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: contributions-heatmap
+  cancel-in-progress: true
+
+jobs:
+  heatmap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Render heatmap into README
+        env:
+          # Swap GITHUB_TOKEN for a PAT (secrets.GH_PAT) to include private contributions.
+          GH_TOKEN: ${{ secrets.GH_PAT || github.token }}
+          GH_LOGIN: ${{ github.repository_owner }}
+        run: node .github/scripts/heatmap.mjs
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- README.md; then
+            echo "No heatmap changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "chore: update contributions heatmap"
+          git push
