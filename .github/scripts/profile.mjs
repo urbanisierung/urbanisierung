@@ -24,8 +24,79 @@ const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov
 const DAY_LABELS = { 1: "Mon", 3: "Wed", 5: "Fri" };
 
 // ─── data ────────────────────────────────────────────────────────────────
-async function fetchData() {
-  if (!TOKEN) throw new Error("No GH_TOKEN / GITHUB_TOKEN available.");
+// The calendar and repository queries run separately: combined in one request
+// they exceed GitHub's GraphQL resource limits (RESOURCE_LIMITS_EXCEEDED).
+async function gql(query, variables) {
+  let lastErr;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    if (attempt) await new Promise((r) => setTimeout(r, 2000 * attempt));
+    try {
+      const res = await fetch("https://api.github.com/graphql", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+          "Content-Type": "application/json",
+          "User-Agent": "urbanisierung-readme",
+        },
+        body: JSON.stringify({ query, variables }),
+      });
+      if (!res.ok) throw new Error(`GraphQL HTTP ${res.status}: ${await res.text()}`);
+      const json = await res.json();
+      if (json.errors) throw new Error(`GraphQL: ${JSON.stringify(json.errors)}`);
+      if (!json.data?.user) throw new Error("No user in response.");
+      return json.data.user;
+    } catch (err) {
+      lastErr = err;
+    }
+  }
+  throw lastErr;
+}
+
+// Group a flat, sorted list of day entries into calendar weeks the way
+// GitHub does: a new week starts on Sunday (weekday 0).
+function calendarFromDays(days) {
+  days.sort((a, b) => (a.date < b.date ? -1 : 1));
+  const weeks = [];
+  for (const d of days) {
+    if (!weeks.length || d.weekday === 0) weeks.push({ contributionDays: [] });
+    weeks[weeks.length - 1].contributionDays.push(d);
+  }
+  const totalContributions = days.reduce((s, d) => s + d.contributionCount, 0);
+  return { totalContributions, weeks };
+}
+
+// Fallback source: the public contributions page. No auth, and immune to the
+// GraphQL resource limiter. Day cells carry data-date/data-level; the
+// per-day counts live in <tool-tip> elements keyed by the cell id.
+async function scrapeCalendar() {
+  const res = await fetch(`https://github.com/users/${encodeURIComponent(LOGIN)}/contributions`, {
+    headers: { "User-Agent": "urbanisierung-readme", Accept: "text/html" },
+  });
+  if (!res.ok) throw new Error(`Contributions page HTTP ${res.status}`);
+  const html = await res.text();
+
+  const counts = new Map();
+  for (const [, id, text] of html.matchAll(/<tool-tip[^>]*\bfor="([^"]+)"[^>]*>([\s\S]*?)<\/tool-tip>/g)) {
+    const m = text.trim().match(/^(\d+|No) contribution/i);
+    if (m) counts.set(id, m[1].toLowerCase() === "no" ? 0 : parseInt(m[1], 10));
+  }
+
+  const days = [];
+  for (const m of html.matchAll(/<td\b[^>]*\bdata-date="(\d{4}-\d{2}-\d{2})"[^>]*>/g)) {
+    const [tag, date] = m;
+    const id = tag.match(/\bid="([^"]+)"/)?.[1];
+    const level = parseInt(tag.match(/\bdata-level="(\d+)"/)?.[1] ?? "0", 10);
+    days.push({
+      date,
+      weekday: new Date(`${date}T00:00:00Z`).getUTCDay(),
+      contributionCount: counts.has(id) ? counts.get(id) : level,
+    });
+  }
+  if (!days.length) throw new Error("Could not parse contributions HTML.");
+  return calendarFromDays(days);
+}
+
+async function fetchCalendar() {
   const query = `
     query($login: String!) {
       user(login: $login) {
@@ -35,6 +106,22 @@ async function fetchData() {
             weeks { contributionDays { contributionCount date weekday } }
           }
         }
+      }
+    }`;
+  try {
+    const user = await gql(query, { login: LOGIN });
+    return user.contributionsCollection.contributionCalendar;
+  } catch (err) {
+    console.error(`GraphQL calendar failed (${err.message}); using public contributions page.`);
+    return scrapeCalendar();
+  }
+}
+
+async function fetchData() {
+  if (!TOKEN) throw new Error("No GH_TOKEN / GITHUB_TOKEN available.");
+  const reposQuery = `
+    query($login: String!) {
+      user(login: $login) {
         repositories(first: 100, isFork: false, ownerAffiliations: OWNER,
                      orderBy: { field: PUSHED_AT, direction: DESC }) {
           nodes {
@@ -47,23 +134,11 @@ async function fetchData() {
         }
       }
     }`;
-  const res = await fetch("https://api.github.com/graphql", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${TOKEN}`,
-      "Content-Type": "application/json",
-      "User-Agent": "urbanisierung-readme",
-    },
-    body: JSON.stringify({ query, variables: { login: LOGIN } }),
-  });
-  if (!res.ok) throw new Error(`GraphQL HTTP ${res.status}: ${await res.text()}`);
-  const json = await res.json();
-  if (json.errors) throw new Error(`GraphQL: ${JSON.stringify(json.errors)}`);
-  const user = json.data?.user;
-  if (!user) throw new Error("No user in response.");
+  const calendar = await fetchCalendar();
+  const reposUser = await gql(reposQuery, { login: LOGIN });
   return {
-    calendar: user.contributionsCollection.contributionCalendar,
-    repos: (user.repositories.nodes || []).filter((r) => !r.isPrivate),
+    calendar,
+    repos: (reposUser.repositories.nodes || []).filter((r) => !r.isPrivate),
   };
 }
 
