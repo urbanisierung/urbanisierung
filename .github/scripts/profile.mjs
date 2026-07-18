@@ -52,33 +52,10 @@ async function gql(query, variables) {
   throw lastErr;
 }
 
-// The full-year calendar now exceeds the limits on its own, so it is fetched
-// in quarter-year chunks via contributionsCollection(from:, to:) and the
-// weeks are stitched back together locally (deduped by date, regrouped at
-// Sundays — weekday 0 — exactly like GitHub's own calendar).
-async function fetchCalendar() {
-  const query = `
-    query($login: String!, $from: DateTime!, $to: DateTime!) {
-      user(login: $login) {
-        contributionsCollection(from: $from, to: $to) {
-          contributionCalendar {
-            weeks { contributionDays { contributionCount date weekday } }
-          }
-        }
-      }
-    }`;
-  const DAY = 86400000;
-  const now = Date.now();
-  const byDate = new Map();
-  for (let i = 4; i > 0; i--) {
-    const from = new Date(now - (i * 91 + (i === 4 ? 1 : 0)) * DAY).toISOString();
-    const to = new Date(now - (i - 1) * 91 * DAY).toISOString();
-    const user = await gql(query, { login: LOGIN, from, to });
-    for (const w of user.contributionsCollection.contributionCalendar.weeks) {
-      for (const d of w.contributionDays) byDate.set(d.date, d);
-    }
-  }
-  const days = [...byDate.values()].sort((a, b) => (a.date < b.date ? -1 : 1));
+// Group a flat, sorted list of day entries into calendar weeks the way
+// GitHub does: a new week starts on Sunday (weekday 0).
+function calendarFromDays(days) {
+  days.sort((a, b) => (a.date < b.date ? -1 : 1));
   const weeks = [];
   for (const d of days) {
     if (!weeks.length || d.weekday === 0) weeks.push({ contributionDays: [] });
@@ -86,6 +63,58 @@ async function fetchCalendar() {
   }
   const totalContributions = days.reduce((s, d) => s + d.contributionCount, 0);
   return { totalContributions, weeks };
+}
+
+// Fallback source: the public contributions page. No auth, and immune to the
+// GraphQL resource limiter. Day cells carry data-date/data-level; the
+// per-day counts live in <tool-tip> elements keyed by the cell id.
+async function scrapeCalendar() {
+  const res = await fetch(`https://github.com/users/${encodeURIComponent(LOGIN)}/contributions`, {
+    headers: { "User-Agent": "urbanisierung-readme", Accept: "text/html" },
+  });
+  if (!res.ok) throw new Error(`Contributions page HTTP ${res.status}`);
+  const html = await res.text();
+
+  const counts = new Map();
+  for (const [, id, text] of html.matchAll(/<tool-tip[^>]*\bfor="([^"]+)"[^>]*>([\s\S]*?)<\/tool-tip>/g)) {
+    const m = text.trim().match(/^(\d+|No) contribution/i);
+    if (m) counts.set(id, m[1].toLowerCase() === "no" ? 0 : parseInt(m[1], 10));
+  }
+
+  const days = [];
+  for (const m of html.matchAll(/<td\b[^>]*\bdata-date="(\d{4}-\d{2}-\d{2})"[^>]*>/g)) {
+    const [tag, date] = m;
+    const id = tag.match(/\bid="([^"]+)"/)?.[1];
+    const level = parseInt(tag.match(/\bdata-level="(\d+)"/)?.[1] ?? "0", 10);
+    days.push({
+      date,
+      weekday: new Date(`${date}T00:00:00Z`).getUTCDay(),
+      contributionCount: counts.has(id) ? counts.get(id) : level,
+    });
+  }
+  if (!days.length) throw new Error("Could not parse contributions HTML.");
+  return calendarFromDays(days);
+}
+
+async function fetchCalendar() {
+  const query = `
+    query($login: String!) {
+      user(login: $login) {
+        contributionsCollection {
+          contributionCalendar {
+            totalContributions
+            weeks { contributionDays { contributionCount date weekday } }
+          }
+        }
+      }
+    }`;
+  try {
+    const user = await gql(query, { login: LOGIN });
+    return user.contributionsCollection.contributionCalendar;
+  } catch (err) {
+    console.error(`GraphQL calendar failed (${err.message}); using public contributions page.`);
+    return scrapeCalendar();
+  }
 }
 
 async function fetchData() {
