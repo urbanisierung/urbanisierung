@@ -24,9 +24,37 @@ const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov
 const DAY_LABELS = { 1: "Mon", 3: "Wed", 5: "Fri" };
 
 // ─── data ────────────────────────────────────────────────────────────────
+// The calendar and repository queries run separately: combined in one request
+// they exceed GitHub's GraphQL resource limits (RESOURCE_LIMITS_EXCEEDED).
+async function gql(query, variables) {
+  let lastErr;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    if (attempt) await new Promise((r) => setTimeout(r, 2000 * attempt));
+    try {
+      const res = await fetch("https://api.github.com/graphql", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+          "Content-Type": "application/json",
+          "User-Agent": "urbanisierung-readme",
+        },
+        body: JSON.stringify({ query, variables }),
+      });
+      if (!res.ok) throw new Error(`GraphQL HTTP ${res.status}: ${await res.text()}`);
+      const json = await res.json();
+      if (json.errors) throw new Error(`GraphQL: ${JSON.stringify(json.errors)}`);
+      if (!json.data?.user) throw new Error("No user in response.");
+      return json.data.user;
+    } catch (err) {
+      lastErr = err;
+    }
+  }
+  throw lastErr;
+}
+
 async function fetchData() {
   if (!TOKEN) throw new Error("No GH_TOKEN / GITHUB_TOKEN available.");
-  const query = `
+  const calendarQuery = `
     query($login: String!) {
       user(login: $login) {
         contributionsCollection {
@@ -35,6 +63,11 @@ async function fetchData() {
             weeks { contributionDays { contributionCount date weekday } }
           }
         }
+      }
+    }`;
+  const reposQuery = `
+    query($login: String!) {
+      user(login: $login) {
         repositories(first: 100, isFork: false, ownerAffiliations: OWNER,
                      orderBy: { field: PUSHED_AT, direction: DESC }) {
           nodes {
@@ -47,23 +80,11 @@ async function fetchData() {
         }
       }
     }`;
-  const res = await fetch("https://api.github.com/graphql", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${TOKEN}`,
-      "Content-Type": "application/json",
-      "User-Agent": "urbanisierung-readme",
-    },
-    body: JSON.stringify({ query, variables: { login: LOGIN } }),
-  });
-  if (!res.ok) throw new Error(`GraphQL HTTP ${res.status}: ${await res.text()}`);
-  const json = await res.json();
-  if (json.errors) throw new Error(`GraphQL: ${JSON.stringify(json.errors)}`);
-  const user = json.data?.user;
-  if (!user) throw new Error("No user in response.");
+  const calendarUser = await gql(calendarQuery, { login: LOGIN });
+  const reposUser = await gql(reposQuery, { login: LOGIN });
   return {
-    calendar: user.contributionsCollection.contributionCalendar,
-    repos: (user.repositories.nodes || []).filter((r) => !r.isPrivate),
+    calendar: calendarUser.contributionsCollection.contributionCalendar,
+    repos: (reposUser.repositories.nodes || []).filter((r) => !r.isPrivate),
   };
 }
 
