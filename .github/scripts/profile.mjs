@@ -52,19 +52,44 @@ async function gql(query, variables) {
   throw lastErr;
 }
 
-async function fetchData() {
-  if (!TOKEN) throw new Error("No GH_TOKEN / GITHUB_TOKEN available.");
-  const calendarQuery = `
-    query($login: String!) {
+// The full-year calendar now exceeds the limits on its own, so it is fetched
+// in quarter-year chunks via contributionsCollection(from:, to:) and the
+// weeks are stitched back together locally (deduped by date, regrouped at
+// Sundays — weekday 0 — exactly like GitHub's own calendar).
+async function fetchCalendar() {
+  const query = `
+    query($login: String!, $from: DateTime!, $to: DateTime!) {
       user(login: $login) {
-        contributionsCollection {
+        contributionsCollection(from: $from, to: $to) {
           contributionCalendar {
-            totalContributions
             weeks { contributionDays { contributionCount date weekday } }
           }
         }
       }
     }`;
+  const DAY = 86400000;
+  const now = Date.now();
+  const byDate = new Map();
+  for (let i = 4; i > 0; i--) {
+    const from = new Date(now - (i * 91 + (i === 4 ? 1 : 0)) * DAY).toISOString();
+    const to = new Date(now - (i - 1) * 91 * DAY).toISOString();
+    const user = await gql(query, { login: LOGIN, from, to });
+    for (const w of user.contributionsCollection.contributionCalendar.weeks) {
+      for (const d of w.contributionDays) byDate.set(d.date, d);
+    }
+  }
+  const days = [...byDate.values()].sort((a, b) => (a.date < b.date ? -1 : 1));
+  const weeks = [];
+  for (const d of days) {
+    if (!weeks.length || d.weekday === 0) weeks.push({ contributionDays: [] });
+    weeks[weeks.length - 1].contributionDays.push(d);
+  }
+  const totalContributions = days.reduce((s, d) => s + d.contributionCount, 0);
+  return { totalContributions, weeks };
+}
+
+async function fetchData() {
+  if (!TOKEN) throw new Error("No GH_TOKEN / GITHUB_TOKEN available.");
   const reposQuery = `
     query($login: String!) {
       user(login: $login) {
@@ -80,10 +105,10 @@ async function fetchData() {
         }
       }
     }`;
-  const calendarUser = await gql(calendarQuery, { login: LOGIN });
+  const calendar = await fetchCalendar();
   const reposUser = await gql(reposQuery, { login: LOGIN });
   return {
-    calendar: calendarUser.contributionsCollection.contributionCalendar,
+    calendar,
     repos: (reposUser.repositories.nodes || []).filter((r) => !r.isPrivate),
   };
 }
